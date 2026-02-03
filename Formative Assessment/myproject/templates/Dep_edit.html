@@ -1,0 +1,27 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Department Create Form</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="{{data.name}}" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>location</label>
+                    <input type="address" name="location"  value="{{data.location}}" placeholder="Enter email">
+                </div>
+
+
+                <button class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+
+{% endblock body %}

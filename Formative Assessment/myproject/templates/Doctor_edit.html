@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Department Create Form</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" value="{{data.name}}" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+            <label>specialization</label>
+                <select value="{{data.specialization}}" name="specialization">
+                    <option value="select">--select--</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Neurology">Neurology</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                    <label>phone</label>
+                    <input type="text" name="phone"  value="{{data.phone}}" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email"  value="{{data.email}}" placeholder="Enter email">
+                </div>
+
+                <div class="form-group">
+                <label>department</label>
+                    <select name="department"  value="{{data.department}}">
+                        <option value="select">--select--</option>
+                        
+                        {% for i in dep %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+                
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+     {% endblock body %}   

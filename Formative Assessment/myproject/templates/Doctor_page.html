@@ -1,0 +1,90 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Department Create Form</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+            <label>specialization</label>
+                <select name="specialization">
+                    <option value="select">--select--</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Neurology">Neurology</option>
+                </select>
+            </div>
+
+                <div class="form-group">
+                    <label>phone</label>
+                    <input type="text" name="phone" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Enter email">
+                </div>
+
+
+                <div class="form-group">
+                <label>department</label>
+                    <select name="department">
+                        <option value="select">--select--</option>
+                        
+                        {% for i in data %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+                
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+        
+         <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>specialization</th>
+                        <th>phone</th>
+                        <th>email</th>
+                        <th>department</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.specialization}}</td>
+                            <td>{{i.phone}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.department.name}}</td>
+                            <td>
+                                <a href="{% url 'Doctor_edit' i.id %}">Edit</a>
+                                <a href="{% url 'Doctor_delete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}

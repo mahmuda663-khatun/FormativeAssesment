@@ -1,0 +1,57 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Department Create Form</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+                    <label>location</label>
+                    <input type="text" name="location" placeholder="Enter location">
+                </div>
+
+
+                <button class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+        
+         <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.location}}</td>
+                            <td>
+                                <a href="{% url 'Dep_edit' i.id %}">Edit</a>
+                                <a href="{% url 'Dep_delete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}
+    
