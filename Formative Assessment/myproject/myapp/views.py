@@ -215,10 +215,62 @@ def PatientDelete(r,id):
     return redirect('PatientPage')
 
 def ApointmentPage(r):
-    return render(r,'ApointmentPage.html')
+    A_data=AppointmentModel.objects.all()
+    P_data=PatientModel.objects.get(id=id)
+    D_data=DoctorModel.objects.get(id=id)
+
+    if r.method=="POST":
+        patient=r.POST.get('patient')
+        doctor=r.POST.get('doctor')
+        appointment_date=r.POST.get('appointment_date')
+        status=r.POST.get('status')
+
+        patient=PatientModel.objects.get(id=patient)
+        doc=DoctorModel.objects.get(id=doctor)
+
+        AppointmentModel.objects.create(
+            patient=patient,
+            doctor=doc,
+            appointment_date=appointment_date,
+            status=status,
+            
+        )
+
+    context={
+        'Adata':A_data,
+        'Pdata':P_data,
+        'Ddata':D_data,
+    }
+    return render(r,'ApointmentPage.html',context)
 
 def ApointmentEdit(r,id):
-    return render(r,'ApointmentEdit.html')
+    E_data=AppointmentModel.objects.get(id=id)
+    P_data=PatientModel.objects.get(id=id)
+    D_data=DoctorModel.objects.get(id=id)
+
+    if r.method=="POST":
+        patient=r.POST.get('patient')
+        doctor=r.POST.get('doctor')
+        appointment_date=r.POST.get('appointment_date')
+        status=r.POST.get('status')
+
+        patient=PatientModel.objects.get(id=patient)
+        doc=DoctorModel.objects.get(id=doctor)
+
+        E_data.patient=patient
+        E_data.doctor=doc
+        E_data.appointment_date=appointment_date
+        E_data.status=status
+        E_data.save()
+        return redirect ('PatientPage')
+    
+    context={
+        'Edata':E_data,
+        'Pdata':P_data,
+        'Ddata':D_data,
+    }
+    return render(r,'ApointmentEdit.html',context)
 
 def ApointmentDelete(r,id):
+    AppointmentModel.objects.get(id=id).delete()
     return redirect('ApointmentPage.html')                                                                                   
