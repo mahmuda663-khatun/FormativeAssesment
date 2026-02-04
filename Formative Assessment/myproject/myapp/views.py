@@ -9,8 +9,8 @@ from django.contrib import messages
 @login_required
 def home(r):
     return render (r,'home.html')
-@login_required
-def signup(r):
+
+def signupPage(r):
     if r.method=="POST":
         username=r.POST.get('username')
         email=r.POST.get('email')
@@ -27,8 +27,8 @@ def signup(r):
             
         return redirect('signin')
     return render (r,'signup.html')
-@login_required
-def signin(r):
+
+def signinPage(r):
     if r.method=="POST":
         username=r.POST.get('username')
         password=r.POST.get('password')
@@ -42,11 +42,11 @@ def signin(r):
             return redirect('home')
     return render (r,'signin.html')
 
-def signout(r):
+def signoutPage(r):
     logout(r)
     return redirect('signin')
 @login_required
-def changepass(r):
+def changepassPage(r):
     current_user=r.user
     if r.method=="POST":
         current_password=r.POST.get('current_password')
@@ -62,7 +62,7 @@ def changepass(r):
                 return redirect ('home')
     return render(r,'changepass.html')
 
-def Dep_page(r):
+def Departmentpage(r):
     d_data=DepartmentModel.objects.all()
     if r.method=="POST":
         name=r.POST.get('name')
@@ -78,7 +78,7 @@ def Dep_page(r):
     }
     return render (r,'Dep_page.html',context)
 
-def Dep_edit(r,id):
+def Dep_editPage(r,id):
     E_data=DepartmentModel.objects.get(id=id)
     if r.method=="POST":
         name=r.POST.get('name')
@@ -93,7 +93,7 @@ def Dep_edit(r,id):
     }
     return render (r,'Dep_edit.html',context)
 
-def Dep_delete(r,id):
+def Dep_deletePage(r,id):
     DepartmentModel.objects.get(id=id).delete()
     return redirect('Dep_page')
 
@@ -123,7 +123,7 @@ def DoctorPage(r):
     }
     return render (r,'Doctor_page.html',context)
 
-def Doctor_edit(r,id):
+def Doctor_editPage(r,id):
     E_data=DoctorModel.objects.get(id=id)
     dep_data=DepartmentModel.objects.all()
 
@@ -149,7 +149,7 @@ def Doctor_edit(r,id):
     }
     return render (r,'Doctor_edit.html',context)
 
-def Doctor_delete(r,id):
+def Doctor_deletePage(r,id):
     DoctorModel.objects.get(id=id).delete()
     return redirect('Doctor_page')
 
@@ -182,7 +182,7 @@ def PatientPage(r):
     }
     return render (r,'PatientPage.html',context)
 
-def PatientEdit(r,id):
+def PatientEditPage(r,id):
     d_data=DoctorModel.objects.all()
     E_data=PatientModel.objects.get(id=id)
 
@@ -210,14 +210,14 @@ def PatientEdit(r,id):
     }
     return render (r,'PatientEdit.html',context)
 
-def PatientDelete(r,id):
+def PatientDeletePage(r,id):
     PatientModel.objects.get(id=id).delete()
     return redirect('PatientPage')
 
 def ApointmentPage(r):
     A_data=AppointmentModel.objects.all()
-    P_data=PatientModel.objects.get(id=id)
-    D_data=DoctorModel.objects.get(id=id)
+    P_data=PatientModel.objects.all()
+    D_data=DoctorModel.objects.all()
 
     if r.method=="POST":
         patient=r.POST.get('patient')
@@ -243,10 +243,10 @@ def ApointmentPage(r):
     }
     return render(r,'ApointmentPage.html',context)
 
-def ApointmentEdit(r,id):
+def ApointmentEditPage(r,id):
     E_data=AppointmentModel.objects.get(id=id)
-    P_data=PatientModel.objects.get(id=id)
-    D_data=DoctorModel.objects.get(id=id)
+    P_data=PatientModel.objects.all()
+    D_data=DoctorModel.objects.all()
 
     if r.method=="POST":
         patient=r.POST.get('patient')
@@ -262,7 +262,7 @@ def ApointmentEdit(r,id):
         E_data.appointment_date=appointment_date
         E_data.status=status
         E_data.save()
-        return redirect ('PatientPage')
+        return redirect ('ApointmentPage')
     
     context={
         'Edata':E_data,
@@ -271,6 +271,6 @@ def ApointmentEdit(r,id):
     }
     return render(r,'ApointmentEdit.html',context)
 
-def ApointmentDelete(r,id):
+def ApointmentDeletePage(r,id):
     AppointmentModel.objects.get(id=id).delete()
-    return redirect('ApointmentPage.html')                                                                                   
+    return redirect('ApointmentPage')                                                                                   

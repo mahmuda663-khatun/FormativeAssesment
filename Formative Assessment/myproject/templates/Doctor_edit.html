@@ -5,7 +5,7 @@
     <div class="container">
 
         <div class="card">
-            <h2>Department Create Form</h2>
+            <h2>Doctor Edit Form</h2>
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
@@ -15,11 +15,25 @@
 
                 <div class="form-group">
             <label>specialization</label>
-                <select value="{{data.specialization}}" name="specialization">
+                <select name="specialization">
                     <option value="select">--select--</option>
-                    <option value="Cardiology">Cardiology</option>
-                    <option value="Dermatology">Dermatology</option>
-                    <option value="Neurology">Neurology</option>
+
+                    <option value="Cardiology" 
+                    {% if data.specialization == 'Cardiology' %}
+                        selected
+                    {% endif %}
+                        >Cardiology</option>
+
+                    <option value="Dermatology"
+                    {% if data.specialization == 'Dermatology' %}
+                        selected
+                    {% endif %}
+                    >Dermatology</option>
+
+                    <option value="Neurology"
+                    {% if data.specialization == 'Neurology' %}
+                        selected
+                    {% endif %}>Neurology</option>
                 </select>
             </div>
 
@@ -35,11 +49,15 @@
 
                 <div class="form-group">
                 <label>department</label>
-                    <select name="department"  value="{{data.department}}">
+                    <select name="department">
                         <option value="select">--select--</option>
                         
                         {% for i in dep %}
-                            <option value="{{i.id}}">{{i.name}}</option>
+                            <option value="{{i.id}}" 
+                            {% if i.id == data.department.id %}
+                                selected
+                            {% endif %}
+                                >{{i.name}}</option>
                         {% endfor %}
                             
                     </select>

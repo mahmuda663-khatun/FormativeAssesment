@@ -1,0 +1,89 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Apointment Create Form</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                <label>Patient</label>
+                    <select name="patient">
+                        <option value="select">--select--</option>
+                        
+                        {% for i in Pdata %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+
+                <div class="form-group">
+                <label>Doctor</label>
+                    <select name="doctor">
+                        <option value="select">--select--</option>
+                        
+                        {% for i in Ddata %}
+                            <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Appointment_date</label>
+                    <input type="date" name="appointment_date" placeholder="Enter name">
+                </div>
+
+                <div class="form-group">
+            <label>status</label>
+                <select name="status">
+                    <option value="select">--select--</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                
+            </form>
+        </div>
+        
+         <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Apointment Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Appointment_date</th>
+                        <th>status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in Adata %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.patient}}</td>
+                            <td>{{i.doctor}}</td>
+                            <td>{{i.appointment_date}}</td>
+                            <td>{{i.status}}</td>
+                            <td>
+                                <a href="{% url 'ApointmentEdit' i.id %}">Edit</a>
+                                <a href="{% url 'ApointmentDelete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}

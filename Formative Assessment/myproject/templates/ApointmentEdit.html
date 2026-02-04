@@ -1,0 +1,71 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="card">
+        <h2>Apointment Create Form</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Patient</label>
+                <select name="patient">
+                    <option value="select">--select--</option>
+
+                    {% for i in Pdata %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Doctor</label>
+                <select name="doctor">
+                    <option value="select">--select--</option>
+
+                    {% for i in Ddata %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Appointment_date</label>
+                <input type="date" value="{{Edata.appointment_date}}" name="appointment_date" placeholder="Enter name">
+            </div>
+
+            <div class="form-group">
+                <label>status</label>
+                <select name="status">
+                    <option value="select">--select--</option>
+
+                    <option value="Pending"
+                    {% if Edata.status == 'Pending' %}
+                       Pending 
+                    {% endif %}
+                        >Pending</option>
+
+                    <option value="Completed"
+                    {% if Edata.status == 'Completed' %}
+                       Completed 
+                    {% endif %}
+                    >Completed</option>
+
+                    <option value="Cancelled" 
+                    {% if Edata.status == 'Cancelled' %}
+                        Cancelled
+                    {% endif %}
+                    >Cancelled</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+{% endblock body %}
