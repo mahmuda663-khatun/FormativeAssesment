@@ -1,0 +1,33 @@
+{% extends 'home.html' %}
+
+{% block body %}
+         <!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2>Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.description}}</td>
+                            <td>
+                                <a href="{% url 'departmentEdit' i.id %}">Edit</a>
+                                <a href="{% url 'departmentdelete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+{% endblock body %}
