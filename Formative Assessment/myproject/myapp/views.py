@@ -18,13 +18,17 @@ def signupPage(r):
         confirm_password=r.POST.get('confirm_password')
 
         if confirm_password==password:
-            UserModel.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-            role='Admin',
-            )
-            
+            user=UserModel.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                role='Patient',
+                )
+            user.save()
+            if user:
+              DoctorModel.objects.create(
+                 doctor=user 
+              )  
         return redirect('signin')
     return render (r,'signup.html')
 
@@ -106,6 +110,16 @@ def DoctorPage(r):
         phone=r.POST.get('phone')
         email=r.POST.get('email')
         department=r.POST.get('department')
+        username= r.POST.get('username')
+        password=r.POST.get('password')
+
+        user=UserModel.objects.create_user(
+            username=username,
+            password=password,
+
+        )
+        user.role='Doctor'
+        user.save()
 
         dep=DepartmentModel.objects.get(id=department)
 
@@ -115,6 +129,7 @@ def DoctorPage(r):
             phone=phone,
             email=email,
             department=dep,
+            doctor=user
         )
 
     context={

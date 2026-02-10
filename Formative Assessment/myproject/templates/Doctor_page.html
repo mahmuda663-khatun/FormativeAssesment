@@ -39,12 +39,22 @@
                     <select name="department">
                         <option value="select">--select--</option>
                         
-                        {% for i in data %}
+                        {% for i in dep %}
                             <option value="{{i.id}}">{{i.name}}</option>
                         {% endfor %}
                             
                     </select>
                 </div>
+
+                 <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
                 
 
                 <button type="submit" class="btn btn-primary">Submit</button>

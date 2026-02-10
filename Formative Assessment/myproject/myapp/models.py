@@ -27,6 +27,7 @@ class DoctorModel(models.Model):
         ('Neurology','Neurology')
     ]
     name=models.CharField(null=True)
+    doctor=models.OneToOneField(UserModel,on_delete=models.CASCADE,null=True)
     specialization=models.CharField(choices=SPECIALIZATION,null=True)
     phone=models.CharField(max_length=11,null=True)
     email=models.EmailField(null=True)
