@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+<h2>Category Edit Page</h2>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+  <label for="fname">category_name</label>
+  <input type="text" id="fname" value={{E_data.category_name}} name="category_name" placeholder="Your name..">
+
+  <div class="form-group">
+        <label>Description</label>
+        <textarea placeholder="Enter description" name="description">{{E_data.description}}</textarea>
+    </div>
+
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock body %}
+    

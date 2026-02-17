@@ -1,0 +1,12 @@
+e{% extends 'home.html' %}
+
+{% block body %}
+     
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{course}}
+ 
+  <input type="submit" value="Submit">
+</form>   
+{% endblock body %}
+    

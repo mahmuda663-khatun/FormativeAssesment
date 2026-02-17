@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+<h1>
+    <a href="{% url 'EnrollmentAdd' %}">EnrollmentAdd </a>
+</h1><br>
+            <div class="card">
+            <h2> Course Table List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>student</th>
+                        <th>course</th>
+                        <th>enrolled_at</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in C_data %}
+                        <tr>
+                            <td>{{i.student}}</td>
+                            <td>{{i.course}}</td>
+                            <td>{{i.enrolled_at}}</td>
+                            
+                            <td>
+                                <a href="{% url 'EnrollmentEdit' i.id %}">Edit</a>
+                                <a href="{% url 'EnrollmentDelete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+{% endblock body %}
+    

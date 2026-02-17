@@ -1,0 +1,56 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+<h2>Category Page</h2>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+  <label for="fname">category_name</label>
+  <input type="text" id="fname" name="category_name" placeholder="Your name..">
+
+  <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" placeholder="Enter description"></textarea>
+    </div>
+
+  <input type="submit" value="Submit">
+</form>
+
+
+<!-- ===== TABLE CARD ===== -->
+        <div class="card">
+            <h2> Category Table View</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>category_name</th>
+                        <th>description</th>
+                        <th>created_at</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in C_data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.category_name}}</td>
+                            <td>{{i.description}}</td>
+                            <td>{{i.created_at}}</td>
+                            <td>
+                                <a href="{% url 'categoryEdit' i.id %}">Edit</a>
+                                <a href="{% url 'categoryDelete' i.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+{% endblock body %}
+    

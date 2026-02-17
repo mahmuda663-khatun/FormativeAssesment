@@ -1,0 +1,60 @@
+{% extends 'home.html' %}
+
+{% block body %}
+
+{% if request.user.role == 'Instructor' %}
+    
+<h1>
+    <a href="{% url 'CourseAdd' %}">Course_Creation </a>
+</h1><br>
+{% endif %}
+            <div class="card">
+            <h2> Course Table List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>instructor</th>
+                        <th>category</th>
+                        <th>course_title</th>
+                        <th>description</th>
+                        <th>thumbnail</th>
+                        <th>price</th>
+                        <th>is_published</th>
+                        <th>created_at</th>
+                        {% if request.user.role == 'Instructor' %}
+                        <th>Action</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in C_data %}
+                        <tr>
+                            <td>{{i.instructor}}</td>
+                            <td>{{i.category}}</td>
+                            <td>{{i.course_title}}</td>
+                            <td>{{i.course_description}}</td>
+                            <td>
+                                {% if i.course_thumbnail %}
+                                   <img src="{{i.course_thumbnail.url}}" width="50px" height="50px" alt=""> 
+                                {% endif %}
+                                    
+                            </td>
+                            <td>{{i.price}}</td>
+                            <td>{{i.is_published}}</td>
+                            <td>{{i.created_at}}</td>
+                            {% if request.user.role == 'Instructor' %}
+                            <td>
+                                <a href="{% url 'CourseEdit' i.id %}">Edit</a>
+                                <a href="{% url 'CourseDelete' i.id %}">Delete</a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+
+{% endblock body %}
+    
