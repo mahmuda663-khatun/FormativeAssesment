@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+        }
+
+        /* NAVBAR */
+        nav{
+            background:#111;
+            padding:15px 30px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .logo{
+            color:#fff;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .menu{
+            list-style:none;
+            display:flex;
+        }
+
+        .menu li{
+            margin-left:25px;
+        }
+
+        .menu a{
+            text-decoration:none;
+            color:#fff;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        .menu a:hover{
+            color:#00c3ff;
+        }
+
+        /* MOBILE MENU */
+        #menu-toggle{
+            display:none;
+        }
+
+        .menu-icon{
+            display:none;
+            font-size:24px;
+            color:white;
+            cursor:pointer;
+        }
+
+        /* HERO SECTION */
+        .hero{
+            height:90vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            background:linear-gradient(135deg,#00c3ff,#0066ff);
+            color:white;
+        }
+
+        .hero h1{
+            font-size:40px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+
+            .menu{
+                position:absolute;
+                top:60px;
+                left:0;
+                width:100%;
+                background:#111;
+                flex-direction:column;
+                display:none;
+            }
+
+            .menu li{
+                margin:15px 0;
+                text-align:center;
+            }
+
+            #menu-toggle:checked + .menu-icon + .menu{
+                display:flex;
+            }
+
+            .menu-icon{
+                display:block;
+            }
+        }
+    </style>
+    <style>
+form {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+label {display: block;}
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+ /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table thead {
+            background: #f1f5f9;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        table th {
+            font-weight: 600;
+        }
+
+        table tbody tr:hover {
+            background: #f9fafb;
+        }
+
+</style>
+</head>
+
+<body>
+{% include 'nav.html' %}
+
+{% block body %}
+
+{% if messages %}
+    
+    {% for i in messages %}
+        <p>{{i}}</p>
+    {% endfor %}
+        
+{% endif %}
+    
+    <h1>Welcome!{{user.username}}</h1>
+{% endblock body %}
+    
+</body>
+</html>
+
