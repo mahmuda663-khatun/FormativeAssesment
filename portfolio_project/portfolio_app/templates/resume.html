@@ -1,0 +1,53 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+    <!-- Header -->
+  <div class="header">
+    <img src="{{ profile_data.image.url }}" alt="Profile" class="profile-img">
+    <div class="header-info">
+      <h1>{{ profile_data.full_name }}</h1>
+      <p>{{ profile_data.address }}</p>
+      <p><a href="{{ profile_data.social_link }}" target="_blank">Social Profile</a></p>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div class="section">
+    <h2>Skills</h2>
+    <div class="skills">
+      {% for skill in skills %}
+        <div class="skill">{{ skill.name }}</div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Experience -->
+  <div class="section">
+    <h2>Experience</h2>
+    {% for exp in experiences %}
+      <div class="experience">
+        <h3>{{ exp.designation }} - {{ exp.company_name }}</h3>
+        <small>{{ exp.duration }}</small>
+        <p>{{ exp.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Projects -->
+  <div class="section">
+    <h2>Projects</h2>
+    <div class="projects">
+      {% for project in projects %}
+        <div class="project">
+          <img src="{{ project.image.url }}" alt="">
+          <div class="project-content">
+            <strong>{{ project.title }}</strong>
+            <p>{{ project.description|truncatewords:15 }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock content %}
+    

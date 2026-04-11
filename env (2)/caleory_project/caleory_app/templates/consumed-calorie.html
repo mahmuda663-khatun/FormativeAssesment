@@ -1,0 +1,35 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+<h1>Consumed Calories</h1>
+<a href="{% url 'add_calorie' %}">Add Calorie</a>
+
+<table>
+    <tr>
+        <th>SL</th>
+        <th>Item Name</th>
+        <th>Calories</th>
+        <th>Date</th>
+        <th>Action</th>
+
+    </tr>
+
+    
+    {% for data in calorie_data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{data.item_name}}</td>
+        <td>{{data.caleory_consumed}}</td>
+        <td>{{data.date}}</td>
+        <td>
+            <a href="{% url 'edit_calorie' data.id %}">Edit</a>
+            <a href="{% url 'delete_calorie' data.id %}">Delete</a>
+        </td>
+    </tr>
+        
+    {% endfor %}
+        
+</table>
+    
+{% endblock content %}
+    

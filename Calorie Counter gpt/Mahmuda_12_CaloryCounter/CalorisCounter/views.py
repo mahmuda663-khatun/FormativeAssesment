@@ -39,26 +39,12 @@ def logout_view(request):
 
 @login_required
 def profile_view(request):
-    try:
-        profile = request.user.profile
-    except Profile.DoesNotExist:
-        profile = None
-
+    profile = getattr(request.user, 'profile', None)
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             prof = form.save(commit=False)
             prof.user = request.user
-            # Calculate BMR
-            # Male: BMR = 66.47 + (13.75 × weight) + (5.003 × height) − (6.755 × age)
-            # Female: BMR = 655.1 + (9.563 × weight) + (1.850 × height) − (4.676 × age)
-            w = prof.weight
-            h = prof.height
-            a = prof.age
-            if prof.gender == 'Male':
-                prof.bmr = 66.47 + (13.75 * w) + (5.003 * h) - (6.755 * a)
-            else:
-                prof.bmr = 655.1 + (9.563 * w) + (1.850 * h) - (4.676 * a)
             prof.save()
             return redirect('dashboard')
     else:
@@ -67,32 +53,27 @@ def profile_view(request):
 
 @login_required
 def add_food_view(request):
-    if request.method == 'POST':
-        form = FoodEntryForm(request.POST)
-        if form.is_valid():
-            entry = form.save(commit=False)
-            entry.user = request.user
-            entry.save()
-            return redirect('dashboard')
-    else:
-        form = FoodEntryForm()
+    form = FoodEntryForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        entry = form.save(commit=False)
+        entry.user = request.user
+        entry.save()
+        return redirect('dashboard')
     return render(request, 'CalorisCounter/add_food.html', {'form': form})
 
 @login_required
 def dashboard_view(request):
-    try:
-        profile = request.user.profile
-    except Profile.DoesNotExist:
+    if not hasattr(request.user, 'profile'):
         return redirect('profile')
     
+    profile = request.user.profile
     today = timezone.now().date()
     entries = FoodEntry.objects.filter(user=request.user, date=today)
     total_consumed = entries.aggregate(Sum('calories'))['calories__sum'] or 0
 
-    context = {
+    return render(request, 'CalorisCounter/dashboard.html', {
         'profile': profile,
         'entries': entries,
         'total_consumed': total_consumed,
-        'required': profile.bmr if profile.bmr else 0,
-    }
-    return render(request, 'CalorisCounter/dashboard.html', context)
+        'required': profile.bmr or 0,
+    })

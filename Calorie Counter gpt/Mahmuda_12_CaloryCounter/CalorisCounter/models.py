@@ -15,6 +15,16 @@ class Profile(models.Model):
     weight = models.FloatField(help_text="Weight in kg")
     bmr = models.FloatField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        # Calculate BMR based on gender
+        # Male: BMR = 66.47 + (13.75 × weight) + (5.003 × height) − (6.755 × age)
+        # Female: BMR = 655.1 + (9.563 × weight) + (1.850 × height) − (4.676 × age)
+        if self.gender == 'Male':
+            self.bmr = 66.47 + (13.75 * self.weight) + (5.003 * self.height) - (6.755 * self.age)
+        else:
+            self.bmr = 655.1 + (9.563 * self.weight) + (1.850 * self.height) - (4.676 * self.age)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.user.username}'s Profile"
 

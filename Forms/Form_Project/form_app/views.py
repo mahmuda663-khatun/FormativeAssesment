@@ -3,7 +3,6 @@ from form_app.models import*
 from form_app.Forms import*
 # Create your views here.
 def home(r):
-    
     return render (r,'home.html')
 
 def dep_list(r):
@@ -45,7 +44,6 @@ def departmentEdit(r,id):
     context={
         'from':D_data
     }
-
     return render(r,'Dep_Add.html',context)
 
 def departmentdelete(r,id):

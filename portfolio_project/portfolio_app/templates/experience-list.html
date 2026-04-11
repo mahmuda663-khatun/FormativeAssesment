@@ -1,0 +1,28 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'add_experience' %}" class="btn btn-edit">Add Experience</a>
+  {% endif %}
+
+  <div class="card-container">
+    {% for data in experience_data %}
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">{{ data.designation }}</div>
+          <div class="card-desc">
+            <strong>{{ data.company_name }} - {{ data.duration }}</strong>
+          </div>
+          <div class="card-desc">{{ data.description }}</div>
+        </div>
+
+        {% if request.user.is_authenticated %}
+          <div class="card-actions">
+            <a href="{% url 'edit_experience' data.id %}" class="btn btn-edit">Edit</a>
+            <a href="{% url 'delete_experience' data.id %}" class="btn btn-delete">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

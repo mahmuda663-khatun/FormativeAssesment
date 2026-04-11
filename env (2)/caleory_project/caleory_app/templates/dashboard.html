@@ -1,0 +1,33 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+<h1>Daily Consumed Calorie</h1>
+
+<p><strong>Required Calories:</strong>{{request.user.user_profile.bmr}} kcal</p>
+<p><strong>Consumed Calories:</strong>{{total_consumed}} kcal</p>
+<p><strong>Less/More Calories:</strong>{{less_more_consumed}} kcal</p>
+
+
+<table>
+    <tr>
+        <th>SL</th>
+        <th>Item Name</th>
+        <th>Calories</th>
+    </tr>
+
+    
+    {% for data in consumed_calorie %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{data.item_name}}</td>
+        <td>{{data.caleory_consumed}}</td>
+       
+    </tr>
+        
+    {% endfor %}
+        
+</table>
+
+
+{% endblock content %}
+    
