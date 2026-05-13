@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Navbar Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #222;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            color: #00bcd4;
+        }
+
+        /* Simple Content */
+        .content {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .content h1 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "master/nav.html" %}
+{% block body %}
+
+{% endblock body %}
+
+
+
+    <div class="content">
+        <h1>Welcome to My Website</h1>
+        <p>This is a simple page with a navbar.</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ily Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body{
+        margin: 40px;
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+    }
+
+    h2{
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    /* Table Styles */
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        margin-bottom: 40px;
+    }
+
+    th, td{
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    th{
+        background: #f2f2f2;
+        font-weight: 600;
+    }
+
+    tr{
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover{
+        background: #fafafa;
+    }
+
+    /* Form Styles */
+    .ily-form{
+        width: 400px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .ily-form input[type="file"],
+    .ily-form button{
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+
+    .ily-form input[type="file"]{
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+    .ily-form button{
+        border: none;
+        background: #333;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .ily-form button:hover{
+        background: #000;
+    }
+
+</style>
+</head>
+
+<body>
+
+<h2>My Appilications</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Appilied At</th>
+            <th>Status</th>
+            <th>Resume</th>
+            <th>Apply_by</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    
+
+      
+        {% for i in data %}
+        <tr>
+            <td>{{ i.job.title }}</td>
+            <td>{{ i.applied_at }}</td>
+            <td>{{ i.status }}</td>
+            
+            <td>
+                {% if i.resume %}
+                    <a href="{{ i.resume.url }}" target="__blank" >View</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ i.apply_by }}</td>
+            <td>
+            <a href="{% url 'job' %}">Back</a>
+                        {% if i.apply_by.user == request.user %}
+                <a href="{% url 'deleteapply' i.id %}">Delete</a>
+                    
+                        {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+
+</body>
+</html>
+{% endblock body %}

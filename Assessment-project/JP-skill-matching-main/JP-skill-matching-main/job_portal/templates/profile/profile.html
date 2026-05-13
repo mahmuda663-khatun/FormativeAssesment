@@ -1,0 +1,105 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    {% comment %} body{
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f5f5f5;
+        font-family: Arial, sans-serif;
+    } {% endcomment %}
+
+    .profile-card{
+        width: 320px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .profile-card img{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .profile-card h2{
+        margin: 10px 0 5px;
+        font-weight: normal;
+    }
+
+    .profile-card p{
+        margin: 5px 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .profile-card .btn{
+        display: inline-block;
+        margin-top: 15px;
+        padding: 8px 20px;
+        border: 1px solid #333;
+        text-decoration: none;
+        color: #333;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .profile-card .btn:hover{
+        background: #333;
+        color: #fff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="profile-card">
+
+    {% if data.image %}
+    
+    <img src="{{data.image.url}}" alt="Profile Picture">
+  
+    {% endif %}
+
+
+ <h2>{{user.display_name}}</h2>
+    <p>Email: {{user.email}}</p>
+    <p>User Type: {{user.user_types}}</p>
+{% if user.user_types == "Seeker" %}
+    <p>Address: {{data.address}}</p>
+    <p>Phone: {{data.phone}}</p>
+    <p>Skill: {{data.skill}}</p>
+    <a href="{% url 'updateprofile' %}" class="btn">Edit Profile</a>
+
+
+
+
+{% else %}
+  <p>company Name: {{data.company_name}}</p>
+    <p>Phone: {{data.phone}}</p>
+   <a href="{% url 'updateprofile' %}" class="btn">Edit Profile</a>
+{% endif %}
+
+
+
+</div>
+
+</body>
+</html>
+{% endblock body %}

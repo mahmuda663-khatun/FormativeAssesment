@@ -1,0 +1,48 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+ <h1>Cash List</h1>
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        
+        {% for data in cash_data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{data.source}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.datetime}}</td>
+            
+        </tr>
+            
+        {% endfor %}
+            
+    </table>
+
+    <h1>Expense List</h1>
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        
+        {% for data in expense_data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{data.description}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.datetime}}</td>
+            
+        </tr>
+            
+        {% endfor %}
+            
+    </table>
+{% endblock content %}
+    

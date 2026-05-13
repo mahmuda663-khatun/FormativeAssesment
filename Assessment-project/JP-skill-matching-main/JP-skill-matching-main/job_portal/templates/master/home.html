@@ -1,0 +1,94 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar */
+        .navbar{
+            background: #333;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a{
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .navbar a:hover{
+            color: #00bcd4;
+        }
+
+        /* Hero Section */
+        .hero{
+            text-align: center;
+            padding: 100px 20px;
+            background: #f4f4f4;
+        }
+
+        .hero h1{
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .hero p{
+            font-size: 18px;
+            color: #555;
+        }
+
+        .hero button{
+            margin-top: 20px;
+            padding: 10px 25px;
+            border: none;
+            background: #00bcd4;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero button:hover{
+            background: #0097a7;
+        }
+
+        /* Footer */
+        .footer{
+            text-align: center;
+            padding: 15px;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+{% include "master/messages.html" %}
+    <div class="hero">
+        <h1>Welcome to My Website</h1>
+        <p>This is a simple home page design using HTML and CSS.</p>
+        <button>Get Started</button>
+    </div>
+
+    <div class="footer">
+        © 2026 MyWebsite. All Rights Reserved.
+    </div>
+
+</body>
+</html>
+{% endblock body %}

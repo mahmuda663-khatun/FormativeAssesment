@@ -1,0 +1,32 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+    <h1>Cash List</h1>
+    <a href="{% url 'add_cash' %}">Add Cash</a>
+
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Source</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        
+        {% for data in cash_data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{data.source}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.datetime}}</td>
+            <td>
+                <a href="{% url 'edit_cash' data.id %}">Edit</a>
+                <a href="{% url 'delete_cash' data.id %}">Delete</a>
+            </td>
+        </tr>
+            
+        {% endfor %}
+            
+    </table>
+{% endblock content %}
+    

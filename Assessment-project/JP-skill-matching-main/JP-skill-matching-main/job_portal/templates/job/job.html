@@ -1,0 +1,130 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Job List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body{
+        margin: 40px;
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+    }
+
+    h2{
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+    }
+
+    th, td{
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    th{
+        background: #f2f2f2;
+        font-weight: 600;
+    }
+
+    tr{
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover{
+        background: #fafafa;
+    }
+
+    .salary{
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Job Listings</h2>
+
+<table>
+    <thead>
+    {% if user.user_types == "Recruiter" %}
+        <a href="{% url 'addjob' %}">PostT a Job</a>
+    
+    {% endif %}
+        <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Skill</th>
+            <th>Openings</th>
+            <th>Salary</th>
+            <th>Address</th>
+            <th>Posted By</th>
+            <th>Created</th>
+            <th>Deadline</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+
+       
+        {% for job in data %}
+        <tr>
+            <td>{{ job.title }}</td>
+            <td>{{ job.category }}</td>
+            <td>
+                <div>
+    <strong>Skills:</strong>
+     {% for skill in job.required_skills.all %}    {% comment %} eta skill many many fields er jonno ebahbe dekhate hoy {% endcomment %}
+        <span>{{ skill.name }}</span>
+    {% empty %}
+        <span>No skills required</span>
+    {% endfor %}
+</div>
+            </td>
+            <td>{{ job.no_openings }}</td>
+            <td class="salary">{{ job.salary }}</td>
+            <td>{{ job.address }}</td>
+            <td>{{ job.posted_by }}</td>
+            <td>{{ job.created_at }}</td>
+            <td>{{ job.deadline }}</td>
+            <td>
+
+
+                {% if user.user_types == "Seeker" %}
+                
+                <a href="{% url 'addapply' job.id %}">Apply</a>
+        
+                {% endif %}
+
+
+
+                {% if job.posted_by.user == request.user %}
+                <a href="{% url 'applicant' job.id %}">Applicant</a>
+                <a href="{% url 'editjob' job.id %}">Edit</a>
+                <a href="{% url 'deletejob' job.id %}">Delete</a>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    
+
+    </tbody>
+</table>
+
+</body>
+</html>
+{% endblock body %}

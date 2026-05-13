@@ -1,0 +1,35 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+    <div class="container">
+        
+    <div class="profile-card">
+        <img src="{{ profile_data.image.url }}" alt="Profile" class="profile-img" />
+
+        <div class="detail-row">
+            <div class="detail-label">Name</div>
+            <div class="detail-value">{{profile_data.full_name}}</div>
+        </div>
+
+
+        <div class="detail-row">
+            <div class="detail-label">Address</div>
+            <div class="detail-value">{{profile_data.address}}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Social Link</div>
+            <div class="detail-value"><a href="{{profile_data.social_link}}" target="_blank">Social Link</a></div>
+        </div>
+
+        <br>
+
+        
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'update_profile' %}" class="btn btn-primary">Update</a>
+            
+        {% endif %}
+            
+    </div>
+</div>
+{% endblock content %}
+    

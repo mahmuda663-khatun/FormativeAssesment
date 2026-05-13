@@ -1,0 +1,76 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+<style>
+    .form-box {
+        max-width: 350px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .form-box h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-box input,
+    .form-box select,
+    .form-box textarea {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        outline: none;
+        font-size: 14px;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .form-box input:focus,
+    .form-box select:focus,
+    .form-box textarea:focus {
+        border-color: #00bcd4;
+        box-shadow: 0 0 5px rgba(0,188,212,0.3);
+    }
+
+    .form-box button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background: #00bcd4;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .form-box button:hover {
+        background: #0097a7;
+    }
+
+    /* Optional: style form labels */
+    .form-box label {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 5px;
+        display: block;
+    }
+</style>
+
+<div class="form-box">
+    <h2>{{ title }}  {% if data %}  {{data.title}} {% endif %}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_data.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock body %}

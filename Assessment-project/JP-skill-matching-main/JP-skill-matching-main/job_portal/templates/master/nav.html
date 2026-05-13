@@ -1,0 +1,27 @@
+    <nav class="navbar">
+        <a href="#" class="logo">MyWebsite</a>
+
+        <form action="{% url 'job' %}" method="GET">
+  <label for="fname">Search</label>
+  <input type="search" id="fname" name="search" value="{{request.GET.search}}" placeholder="Search your name..">
+  <input type="submit" value="Submit">
+  <a href="{% url 'job' %}">Refresh</a>
+</form>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+        
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li><a href="{% url 'job' %}">Job</a></li>
+            <li><a href="{% url 'apply' %}">Apply</a></li>
+
+        {% if user.user_types == "Seeker" %}
+        
+            <li><a href="{% url 'matchingjobs' %}">Matching Jobs</a></li>
+    
+        {% endif %}
+
+
+
+            <li><a href="{% url 'logout' %}">logout</a></li>
+        </ul>
+    </nav>

@@ -1,0 +1,129 @@
+{% extends "master/base.html" %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Applicants List</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 40px;
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    th {
+        background: #f2f2f2;
+        font-weight: 600;
+    }
+
+    tr {
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+        background: #fafafa;
+    }
+
+    .status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #fff;
+        display: inline-block;
+    }
+
+    .Pending { background: #ff9800; }
+    .Shortlisted { background: #2196f3; }
+    .Confirm { background: #4caf50; }
+    .Rejected { background: #f44336; }
+
+    a.resume-link {
+        color: #2196f3;
+        text-decoration: none;
+    }
+
+    a.resume-link:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Applicants for Job</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Applicant Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Skill</th>
+            <th>Applied At</th>
+            <th>Status</th>
+            <th>Resume</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Django Dynamic Rows -->
+        {% for i in recieve %}
+        <tr>
+            <td>{{ i.apply_by.user.display_name }}</td>
+            <td>{{ i.apply_by.user.email }}</td>
+            <td>{{ i.apply_by.phone }}</td>
+            <td>{{ i.apply_by.skill }}</td>
+            <td>{{ i.applied_at }}</td>
+            <td><span class="status {{ i.status }}">{{ i.status }}</span></td>
+            <td>
+                {% if i.resume %}
+                    <a class="resume-link" href="{{ i.resume.url }}" target="_blank">View</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+           <td>
+           <a href="{% url 'job'  %}">Back</a>
+
+           {% if i.status != "Confirm" %}
+           
+             <a href="{% url 'status' i.id %}">Change Status</a>
+          
+           {% endif %}
+           </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align:center;">No applicants yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
+
+{% endblock body %}
